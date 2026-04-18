@@ -1,50 +1,38 @@
-package com.klu.Skill5;
+package com.example.skill7;
 
-import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@Entity
-public class Employee {
+import java.util.List;
+import java.util.Optional;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+@Service
+public class CourseService {
 
-    private String name;
+    @Autowired
+    CourseRepository repository;
 
-    @ManyToOne
-    @JoinColumn(name="department_id")
-    private Department department;
-
-    public Employee() {}
-
-    public Employee(String name, Department department) {
-        this.name = name;
-        this.department = department;
+    public Course addCourse(Course course) {
+        return repository.save(course);
     }
 
-	public int getId() {
-		return id;
-	}
+    public List<Course> getAllCourses() {
+        return repository.findAll();
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Optional<Course> getCourseById(int id) {
+        return repository.findById(id);
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Course updateCourse(Course course) {
+        return repository.save(course);
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void deleteCourse(int id) {
+        repository.deleteById(id);
+    }
 
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
-
-	
+    public List<Course> searchByTitle(String title) {
+        return repository.findByTitle(title);
+    }
 }
