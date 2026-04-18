@@ -1,10 +1,50 @@
-package com.skill4.DI;
+package com.klu.Skill5;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import jakarta.persistence.*;
 
-@Configuration
-@ComponentScan("com.skill4.DI")
-public class Config {
+@Entity
+public class Employee {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name="department_id")
+    private Department department;
+
+    public Employee() {}
+
+    public Employee(String name, Department department) {
+        this.name = name;
+        this.department = department;
+    }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	
 }
